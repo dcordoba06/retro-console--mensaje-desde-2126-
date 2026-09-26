@@ -34,21 +34,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "recolectorPaso8"
     },
-    "humoPaso1": {
-        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8PAAAAAADwy/wAAAAAAPC7/AAAAAAAv8vMDwAAAADwu8wPAAAAAP+7zA8AAADwu8v8AP8PAL+7yw/wy/wAv7vMD/C7/ADwy/wA8Mv8AAD/DwDwyw8AAAAAAAD/AA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "humoPaso0"
-    },
-    "humoPaso2": {
-        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8P8AAAAAAADPzA8AAAAA8LvMDwAAAADwu8sPAAAAAPC8uw//AAAAv8u7+8sPAAC/u7y7u/wAAL/Lv7vL/AAAv/y/u8sPAADwD/DMzA8AAAAAAP//AA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "humoPaso3"
-    },
-    "humoPaso3": {
-        "data": "hwQQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//w8AAAAA8LvL/AAAAADwu8vMDwAAAL+7u8wPAAAAv7u7yw8AAAC/u7vLDwAAAL+7u/z7DwDw+7u7u8v8APC7vMy7u/wA8LvL/LvM/ADwu8z/u8sPAAD///DMzA8AAAAAAP//AA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "humoPaso4"
-    },
     "plantaLista": {
         "data": "hwQQABAAAAAAAAAAAAAAAADMzMzMzAwAwLu7u7u7ywDAu8zMzLzLDMDLGZlnxssMwMuReWfGywDAy5l5Z8bLAMDLmXlnxssAwMuZmWfGywDAy5mZacbLAMDLlZlpwcsAwMtVmRnGywzAu8zMzLzLDMC7u7u7u8sAAMzMzMzMDAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",

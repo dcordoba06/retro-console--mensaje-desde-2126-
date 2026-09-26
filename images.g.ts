@@ -234,63 +234,6 @@ f6bbbbbbbbbb666666666666fdddf
 .............................
 .............................
 `;
-            case "humoPaso1":
-            case "humoPaso0":return img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . f f . . . 
-. . . . . . . . . . f b b f . . 
-. . . . . . . f . f b b b b f . 
-. . . . . f f b f f b b b c f . 
-. . . . f b b b b b b b c c f . 
-. . . . f c b c b b c c c f . . 
-. . . . f c c c c c c f f . . . 
-. . . . . f f c c c f . . . . . 
-. . . . . . . f f f . . . . . . 
-. . . . . . . . . . . f f f f . 
-. . . . . . . . . . f b b b b f 
-. . . . . . . . . . f c b c c f 
-. . . . . . . . . . f c c c f . 
-. . . . . . . . . . . f f f . . 
-`;
-            case "humoPaso2":
-            case "humoPaso3":return img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . f f f f . . 
-. . . . . . . f f f b b b b f . 
-. . . . . . f b b c b b b c f . 
-. . . . . f c b b b c b c f . . 
-. . . . . f c c b b b c f f . . 
-. . . . . f c c c b b b b b f . 
-. . . . . . f f f f b b b b c f 
-. . . . . . . . . . f b b b c f 
-. . . . . . . . . f b b b b c f 
-. . . . . . . . . f c b c c c f 
-. . . . . . . . . . f c c f f . 
-. . . . . . . . . . . f f . . . 
-`;
-            case "humoPaso3":
-            case "humoPaso4":return img`
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . . . . . 
-. . . . . . . . . . f f f f . . 
-. . . . . . f f f f b b b b f . 
-. . . . f f b b b b f b b b f . 
-. . . f b b b b b b b c b c f . 
-. . . f b b b b b b b b c c f . 
-. . . f b b b b b b b c c f . . 
-. . . f c c b b b b b c f f f . 
-. . . f c c c b b c b b b b c f 
-. . . . f c c c c f b b b b c f 
-. . . . . f f f f b b b c b c f 
-. . . . . . . . . f c b c c c f 
-. . . . . . . . . f c c c f f . 
-. . . . . . . . . . f f f . . . 
-`;
             case "plantaLista":
             case "plantaLista0":return img`
 . . . . . . . . . . . . . . . . 

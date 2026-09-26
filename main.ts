@@ -216,7 +216,7 @@ function presentarHistoria () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Moneda, function (sprite, moneda) {
     if (estado == "exploracion") {
-        sprites.destroy(moneda, effects.disintegrate, 500)
+        sprites.destroy(moneda)
         dinero += 10
         info.changeScoreBy(5)
         actualizarContador()
@@ -237,7 +237,7 @@ function finalDelJuego () {
     }
     game.showLongText("Las cuatro ciudades estan reparadas. " + personajeSeleccionado + " termino con " + info.score() + " puntos y " + dinero + " monedas.", DialogLayout.Full)
     game.splash("RANGO: " + rango, "Gracias por salvarnos")
-    game.over(true, effects.confetti)
+    game.over(true)
 }
 function respuestaDel2126 () {
     game.showLongText("Nodo: enviando a 2126 el reporte de la reparacion...", DialogLayout.Full)
@@ -312,7 +312,7 @@ function anunciarCiudad () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Pieza, function (sprite, otraPieza) {
     if (estado == "exploracion") {
         if (piezas < capacidadPiezas) {
-            sprites.destroy(otraPieza, effects.disintegrate, 500)
+            sprites.destroy(otraPieza)
             piezas += 1
             info.changeScoreBy(10)
             actualizarContador()
@@ -428,12 +428,11 @@ function completarMision () {
     dinero += 20
     info.changeScoreBy(puntosReparacion)
     if (nivelActual == 1) {
-        animation.runImageAnimation(
-        dispositivo,
-        [assets.image`recolectorPaso1`,assets.image`recolectorPaso2`,assets.image`recolectorPaso3`,assets.image`recolectorPaso4`,assets.image`recolectorPaso5`,assets.image`recolectorPaso6`,assets.image`recolectorPaso7`],
-        100,
-        false
-        )
+        cuadros = [assets.image`recolectorPaso1`, assets.image`recolectorPaso2`, assets.image`recolectorPaso3`, assets.image`recolectorPaso4`, assets.image`recolectorPaso5`, assets.image`recolectorPaso6`, assets.image`recolectorPaso7`]
+        for (let cuadro of cuadros) {
+            dispositivo.setImage(cuadro)
+            pause(100)
+        }
     } else if (nivelActual == 2) {
         dispositivo.setImage(assets.image`plantaLista0`)
     } else if (nivelActual == 3) {
@@ -577,6 +576,7 @@ function dibujarSeleccion () {
     }
     menuImg.print("flechas y A", 44, 98, 9)
 }
+let cuadros: Image[] = []
 let plasticoNuevo: Sprite = null
 let tipoBasura = 0
 let humoNuevo: Sprite = null
@@ -636,12 +636,6 @@ game.onUpdateInterval(12000, function () {
 game.onUpdateInterval(2500, function () {
     if (nivelActual == 3 && estado == "exploracion" && !(misionCompletada) && sprites.allOfKind(SpriteKind.Humo).length < 4) {
         humoNuevo = sprites.create(assets.image`nubeHumo0`, SpriteKind.Humo)
-        animation.runImageAnimation(
-        humoNuevo,
-        [assets.image`humoPaso1`,assets.image`humoPaso2`,assets.image`humoPaso3`,assets.image`nubeHumo`],
-        500,
-        false
-        )
         tiles.placeOnTile(humoNuevo, tiles.getTileLocation(randint(22, 32), randint(8, 18)))
         humoNuevo.setVelocity(-15, 0)
         humoNuevo.lifespan = 6000
