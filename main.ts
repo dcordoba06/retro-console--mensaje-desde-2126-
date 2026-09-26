@@ -274,11 +274,7 @@ function prepararPersonaje () {
     scene.cameraFollowSprite(jugador)
     info.setScore(0)
     info.setLife(3)
-    fondoContador = sprites.create(assets.image`barraEstado0`, SpriteKind.Interfaz)
-    fondoContador.setFlag(SpriteFlag.RelativeToCamera, true)
-    fondoContador.setPosition(80, 112)
-    fondoContador.z = 99
-    contadorImg = image.create(160, 10)
+    contadorImg = image.create(160, 16)
     contador = sprites.create(contadorImg, SpriteKind.Interfaz)
     contador.setFlag(SpriteFlag.RelativeToCamera, true)
     contador.setPosition(80, 112)
@@ -360,8 +356,9 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function escribirContador (texto: string) {
-    contadorImg.fill(0)
-    contadorImg.print(texto, 2, 1, 1)
+    contadorImg.fill(15)
+    contadorImg.fillRect(0, 0, 160, 1, 12)
+    contadorImg.print(texto, 2, 4, 1)
 }
 function actualizarContador () {
     if (estado == "reparacion") {
@@ -590,7 +587,6 @@ let cartel: Sprite = null
 let contador: Sprite = null
 let contadorImg: Image = null
 let letrero: Image = null
-let fondoContador: Sprite = null
 let descuentoPiezas = 0
 let rango = ""
 let plastico: Sprite = null
