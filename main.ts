@@ -629,6 +629,8 @@ velocidad = 90
 puntosReparacion = 100
 costoReparacion = 3
 arbolesParaGanar = 5
+music.setVolume(255)
+music.play(music.stringPlayable("C5 E5 G5 C5", 200), music.PlaybackMode.UntilDone)
 pause(500)
 presentarHistoria()
 pantallaSeleccion()
