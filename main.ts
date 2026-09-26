@@ -129,6 +129,25 @@ function comprobarBoton (boton: string) {
         actualizarContador()
     }
 }
+function dibujarSeleccion () {
+    menuImg.fill(15)
+    menuImg.print("ELEGI TU PERSONAJE", 22, 12, 5)
+menuImg.drawTransparentImage(assets.image`ale0`, 22, 42)
+    menuImg.drawTransparentImage(assets.image`cami0`, 57, 42)
+    menuImg.drawTransparentImage(assets.image`cris`, 94, 42)
+    menuImg.drawTransparentImage(assets.image`nico0`, 129, 42)
+    menuImg.fillRect(20 + seleccion * 36, 62, 14, 2, 5)
+    if (seleccion == 0) {
+        menuImg.print("ALE - camina mas rapido", 14, 78, 1)
+    } else if (seleccion == 1) {
+        menuImg.print("CAMI - ahorra una pieza", 14, 78, 1)
+    } else if (seleccion == 2) {
+        menuImg.print("CRIS - mas puntos", 26, 78, 1)
+    } else {
+        menuImg.print("NICO - carga una mas", 20, 78, 1)
+    }
+    menuImg.print("flechas y A", 44, 98, 9)
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (estado == "seleccion") {
         if (seleccion == 0) {
@@ -222,6 +241,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Moneda, function (sprite, moneda
         actualizarContador()
     }
 })
+function escribirContador (texto: string) {
+    contadorImg.fill(15)
+    contadorImg.fillRect(0, 0, 160, 1, 12)
+    contadorImg.print(texto, 2, 4, 1)
+}
 function finalDelJuego () {
     estado = "mensaje"
     controller.moveSprite(jugador, 0, 0)
@@ -324,7 +348,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Pieza, function (sprite, otraPie
 function ponerCartel (texto: string, columna: number, fila: number) {
     letrero = image.create(texto.length * 6 + 2, 9)
     letrero.print(texto, 1, 1, 1)
-    cartel = sprites.create(letrero, SpriteKind.Cartel)
+cartel = sprites.create(letrero, SpriteKind.Cartel)
     tiles.placeOnTile(cartel, tiles.getTileLocation(columna, fila))
 }
 function colocarRecursosYPeligros () {
@@ -355,11 +379,6 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         dibujarSeleccion()
     }
 })
-function escribirContador (texto: string) {
-    contadorImg.fill(15)
-    contadorImg.fillRect(0, 0, 160, 1, 12)
-    contadorImg.print(texto, 2, 4, 1)
-}
 function actualizarContador () {
     if (estado == "reparacion") {
         if (nivelActual == 1) {
@@ -377,6 +396,17 @@ function actualizarContador () {
         escribirContador("Piezas " + piezas + "/" + capacidadPiezas + "  $" + dinero)
     }
     contador.setPosition(80, 112)
+}
+function pantallaSeleccion () {
+    estado = "seleccion"
+    seleccion = 0
+    scene.setBackgroundColor(15)
+    menuImg = image.create(160, 120)
+    menuSel = sprites.create(menuImg, SpriteKind.Interfaz)
+    menuSel.setFlag(SpriteFlag.RelativeToCamera, true)
+    menuSel.setPosition(80, 60)
+    menuSel.z = 100
+    dibujarSeleccion()
 }
 function cargarNivel3 () {
     tiles.setCurrentTilemap(tilemap`ciudadAire`)
@@ -428,7 +458,15 @@ function completarMision () {
     dinero += 20
     info.changeScoreBy(puntosReparacion)
     if (nivelActual == 1) {
-        cuadros = [assets.image`recolectorPaso1`, assets.image`recolectorPaso2`, assets.image`recolectorPaso3`, assets.image`recolectorPaso4`, assets.image`recolectorPaso5`, assets.image`recolectorPaso6`, assets.image`recolectorPaso7`]
+        cuadros = [
+        assets.image`recolectorPaso0`,
+        assets.image`recolectorPaso3`,
+        assets.image`recolectorPaso3`,
+        assets.image`recolectorPaso4`,
+        assets.image`recolectorPaso5`,
+        assets.image`recolectorPaso6`,
+        assets.image`recolectorPaso7`
+        ]
         for (let cuadro of cuadros) {
             dispositivo.setImage(cuadro)
             pause(100)
@@ -546,47 +584,15 @@ function cargarNivel1 () {
     ponerCartel("RECICLAJE", 30, 19)
     ponerCartel("PARQUE", 8, 23)
 }
-function pantallaSeleccion () {
-    estado = "seleccion"
-    seleccion = 0
-    scene.setBackgroundColor(15)
-    menuImg = image.create(160, 120)
-    menuSel = sprites.create(menuImg, SpriteKind.Interfaz)
-    menuSel.setFlag(SpriteFlag.RelativeToCamera, true)
-    menuSel.setPosition(80, 60)
-    menuSel.z = 100
-    dibujarSeleccion()
-}
-function dibujarSeleccion () {
-    menuImg.fill(15)
-    menuImg.print("ELEGI TU PERSONAJE", 22, 12, 5)
-    menuImg.drawTransparentImage(assets.image`ale0`, 22, 42)
-    menuImg.drawTransparentImage(assets.image`cami0`, 57, 42)
-    menuImg.drawTransparentImage(assets.image`cris`, 94, 42)
-    menuImg.drawTransparentImage(assets.image`nico0`, 129, 42)
-    menuImg.fillRect(20 + seleccion * 36, 62, 14, 2, 5)
-    if (seleccion == 0) {
-        menuImg.print("ALE - camina mas rapido", 14, 78, 1)
-    } else if (seleccion == 1) {
-        menuImg.print("CAMI - ahorra una pieza", 14, 78, 1)
-    } else if (seleccion == 2) {
-        menuImg.print("CRIS - mas puntos", 26, 78, 1)
-    } else {
-        menuImg.print("NICO - carga una mas", 20, 78, 1)
-    }
-    menuImg.print("flechas y A", 44, 98, 9)
-}
-let cuadros: Image[] = []
 let plasticoNuevo: Sprite = null
 let tipoBasura = 0
 let humoNuevo: Sprite = null
 let arbolNuevo: Sprite = null
 let simbolo: Sprite = null
+let cuadros: Image[] = []
 let objeto: Sprite = null
 let cartel: Sprite = null
 let contador: Sprite = null
-let contadorImg: Image = null
-let letrero: Image = null
 let descuentoPiezas = 0
 let rango = ""
 let plastico: Sprite = null
@@ -598,6 +604,9 @@ let herramienta: Sprite = null
 let mochila: Sprite = null
 let botiquin: Sprite = null
 let maquina: Sprite = null
+let menuSel: Sprite = null
+let personajeSeleccionado = ""
+let seleccion = 0
 let pasoReparacion = 0
 let esValido = false
 let nivelHerramienta = 0
@@ -607,10 +616,6 @@ let dispositivo: Sprite = null
 let jugador: Sprite = null
 let piezas = 0
 let arbolesRegados = 0
-let personajeSeleccionado = ""
-let menuSel: Sprite = null
-let menuImg: Image = null
-let seleccion = 0
 let arbolesParaGanar = 0
 let costoReparacion = 0
 let puntosReparacion = 0
@@ -618,6 +623,10 @@ let velocidad = 0
 let capacidadPiezas = 0
 let nivelActual = 0
 let estado = ""
+music.play(music.stringPlayable("- - - - - - - - ", 120), music.PlaybackMode.UntilDone)
+let menuImg: Image = null
+let letrero: Image = null
+let contadorImg: Image = null
 estado = "seleccion"
 nivelActual = 1
 capacidadPiezas = 3
