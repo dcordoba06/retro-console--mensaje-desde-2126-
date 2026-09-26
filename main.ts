@@ -203,6 +203,7 @@ function cargarNivel2 () {
 function revivirBrote () {
     broteElegido.setImage(assets.image`brote0`)
     broteElegido.setKind(SpriteKind.Brote)
+    music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.InBackground)
     protegidoHasta = game.runtime() + 2500
     info.changeScoreBy(10)
     jugador.sayText("Revivio! Cuidado donde pisas", 1000, false)
@@ -236,6 +237,7 @@ function presentarHistoria () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Moneda, function (sprite, moneda) {
     if (estado == "exploracion") {
         sprites.destroy(moneda)
+        music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.InBackground)
         dinero += 10
         info.changeScoreBy(5)
         actualizarContador()
@@ -337,6 +339,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Pieza, function (sprite, otraPie
     if (estado == "exploracion") {
         if (piezas < capacidadPiezas) {
             sprites.destroy(otraPieza)
+            music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.InBackground)
             piezas += 1
             info.changeScoreBy(10)
             actualizarContador()
@@ -428,6 +431,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Brote, function (sprite, brote) 
         protegidoHasta = game.runtime() + 1500
         brote.setImage(assets.image`brotePisado0`)
         brote.setKind(SpriteKind.BroteMarchito)
+        music.play(music.melodyPlayable(music.buzzer), music.PlaybackMode.InBackground)
         info.changeLifeBy(-1)
         info.changeScoreBy(-10)
         jugador.sayText("Lo pise! Apreta A para revivirlo", 2000, false)
@@ -458,15 +462,7 @@ function completarMision () {
     dinero += 20
     info.changeScoreBy(puntosReparacion)
     if (nivelActual == 1) {
-        cuadros = [
-        assets.image`recolectorPaso0`,
-        assets.image`recolectorPaso3`,
-        assets.image`recolectorPaso3`,
-        assets.image`recolectorPaso4`,
-        assets.image`recolectorPaso5`,
-        assets.image`recolectorPaso6`,
-        assets.image`recolectorPaso7`
-        ]
+        cuadros = [assets.image`recolectorPaso1`, assets.image`recolectorPaso2`, assets.image`recolectorPaso3`, assets.image`recolectorPaso4`, assets.image`recolectorPaso5`, assets.image`recolectorPaso6`, assets.image`recolectorPaso7`]
         for (let cuadro of cuadros) {
             dispositivo.setImage(cuadro)
             pause(100)
