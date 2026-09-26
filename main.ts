@@ -623,7 +623,7 @@ let velocidad = 0
 let capacidadPiezas = 0
 let nivelActual = 0
 let estado = ""
-music.play(music.stringPlayable("- - - - - - - - ", 120), music.PlaybackMode.UntilDone)
+music.play(music.stringPlayable("G B A G C5 B A B ", 120), music.PlaybackMode.LoopingInBackground)
 let menuImg: Image = null
 let letrero: Image = null
 let contadorImg: Image = null
