@@ -4,8 +4,7 @@
     "dependencies": {
         "device": "*",
         "arcade-mini-menu": "github:riknoll/arcade-mini-menu#v0.1.0",
-        "arcade-fancy-text": "github:riknoll/arcade-fancy-text#v0.2.2",
-        "Color Fading": "github:jwunderl/pxt-color#v0.2.3"
+        "arcade-fancy-text": "github:riknoll/arcade-fancy-text#v0.2.2"
     },
     "files": [
         "main.blocks",

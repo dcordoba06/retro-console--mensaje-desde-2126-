@@ -468,8 +468,6 @@ function ponerArbol (columna: number, fila: number) {
 function cargarNivel () {
     estado = "mensaje"
     controller.moveSprite(jugador, 0, 0)
-    color.startFade(color.originalPalette, color.Black)
-    color.pauseUntilFadeDone()
     limpiarEscenario()
     misionCompletada = false
     if (nivelActual == 1) {
@@ -485,8 +483,6 @@ function cargarNivel () {
     volverALaBase()
     estado = "mensaje"
     controller.moveSprite(jugador, 0, 0)
-    color.startFade(color.Black, color.originalPalette)
-    color.pauseUntilFadeDone()
     anunciarCiudad()
     consultarMensaje()
 }
@@ -580,10 +576,6 @@ costoReparacion = 3
 arbolesParaGanar = 5
 pause(500)
 presentarHistoria()
-color.startFade(color.originalPalette, color.Black)
-color.pauseUntilFadeDone()
-color.startFade(color.Black, color.originalPalette)
-color.pauseUntilFadeDone()
 menuPersonajes = miniMenu.createMenu(
 miniMenu.createMenuItem("Ale: mas velocidad", assets.image`ale0`),
 miniMenu.createMenuItem("Cami: ahorra 1 pieza", assets.image`cami0`),
@@ -604,17 +596,6 @@ miniMenu.onButtonPressed(menuPersonajes, miniMenu.Button.A, function (selection,
     }
     prepararPersonaje()
     cargarNivel()
-})
-miniMenu.onSelectionChanged(menuPersonajes, function (selection, selectedIndex) {
-    if (selectedIndex == 0) {
-        scene.setBackgroundImage(assets.image`fondoAleVariante0`)
-    } else if (selectedIndex == 1) {
-        scene.setBackgroundImage(assets.image`fondoCami0`)
-    } else if (selectedIndex == 2) {
-        scene.setBackgroundImage(assets.image`fondoCrisVariante0`)
-    } else {
-        scene.setBackgroundImage(assets.image`fondoNicoAlternativo0`)
-    }
 })
 game.onUpdateInterval(12000, function () {
     if (nivelActual == 2 && !(arrastrando)) {
