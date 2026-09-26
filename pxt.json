@@ -3,8 +3,7 @@
     "description": "Aventura educativa de cuatro niveles: reciclaje, agua, aire y naturaleza. Explora, cuida plantas y repara la ciudad para cambiar 2126.",
     "dependencies": {
         "device": "*",
-        "arcade-mini-menu": "github:riknoll/arcade-mini-menu#v0.1.0",
-        "arcade-fancy-text": "github:riknoll/arcade-fancy-text#v0.2.2"
+        "arcade-mini-menu": "github:riknoll/arcade-mini-menu#v0.1.0"
     },
     "files": [
         "main.blocks",

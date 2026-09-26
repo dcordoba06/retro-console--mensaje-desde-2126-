@@ -197,7 +197,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Plastico, function (sprite, otro
     }
 })
 function presentarHistoria () {
-    scene.setBackgroundImage(assets.image`portadaHistoria0`)
+    scene.setBackgroundColor(15)
     game.splash("Mensaje desde 2126", "Ayuda hoy al futuro")
     game.showLongText("2026. Nico, Cami, Ale y Cris reciben un mensaje de una cuenta desconocida en Nodo, su aplicacion de chat. Dice venir de 2126...", DialogLayout.Full)
     game.showLongText("Somos sus nietos y nietas. Encontramos una maquina vieja que envia mensajes al pasado. La conectamos a Nodo. Aqui falta agua limpia, hay basura y casi no quedan zonas verdes.", DialogLayout.Full)
@@ -267,11 +267,11 @@ function prepararPersonaje () {
     fondoContador.setFlag(SpriteFlag.RelativeToCamera, true)
     fondoContador.setPosition(80, 112)
     fondoContador.z = 99
-    contador = fancyText.create("")
+    contadorImg = image.create(160, 10)
+    contador = sprites.create(contadorImg, SpriteKind.Interfaz)
     contador.setFlag(SpriteFlag.RelativeToCamera, true)
     contador.setPosition(80, 112)
     contador.z = 100
-    fancyText.setColor(contador, 1)
 }
 function consultarMensaje () {
     estado = "mensaje"
@@ -315,9 +315,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Pieza, function (sprite, otraPie
     }
 })
 function ponerCartel (texto: string, columna: number, fila: number) {
-    cartel = fancyText.create(texto)
-    cartel.setKind(SpriteKind.Cartel)
-    fancyText.setColor(cartel, 1)
+    letrero = image.create(texto.length * 6 + 2, 9)
+    letrero.print(texto, 1, 1, 1)
+    cartel = sprites.create(letrero, SpriteKind.Cartel)
     tiles.placeOnTile(cartel, tiles.getTileLocation(columna, fila))
 }
 function colocarRecursosYPeligros () {
@@ -342,21 +342,25 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         comprobarBoton("DERECHA")
     }
 })
+function escribirContador (texto: string) {
+    contadorImg.fill(0)
+    contadorImg.print(texto, 2, 1, 1)
+}
 function actualizarContador () {
     if (estado == "reparacion") {
         if (nivelActual == 1) {
-            fancyText.setText(contador, "A B A ^  |  Paso " + (pasoReparacion + 1) + "/4")
+            escribirContador("A B A ^  |  Paso " + (pasoReparacion + 1) + "/4")
         } else if (nivelActual == 2) {
-            fancyText.setText(contador, "A ^ B A  |  Paso " + (pasoReparacion + 1) + "/4")
+            escribirContador("A ^ B A  |  Paso " + (pasoReparacion + 1) + "/4")
         } else if (nivelActual == 3) {
-            fancyText.setText(contador, "B A ^ B  |  Paso " + (pasoReparacion + 1) + "/4")
+            escribirContador("B A ^ B  |  Paso " + (pasoReparacion + 1) + "/4")
         } else {
-            fancyText.setText(contador, "^ B A ^  |  Paso " + (pasoReparacion + 1) + "/4")
+            escribirContador("^ B A ^  |  Paso " + (pasoReparacion + 1) + "/4")
         }
     } else if (nivelActual == 4) {
-        fancyText.setText(contador, "Arb " + arbolesRegados + "/" + arbolesParaGanar + " P " + piezas + "/" + capacidadPiezas + " $" + dinero)
+        escribirContador("Arb " + arbolesRegados + "/" + arbolesParaGanar + " P " + piezas + "/" + capacidadPiezas + " $" + dinero)
     } else {
-        fancyText.setText(contador, "Piezas " + piezas + "/" + capacidadPiezas + "  $" + dinero)
+        escribirContador("Piezas " + piezas + "/" + capacidadPiezas + "  $" + dinero)
     }
     contador.setPosition(80, 112)
 }
@@ -535,8 +539,10 @@ let humoNuevo: Sprite = null
 let arbolNuevo: Sprite = null
 let simbolo: Sprite = null
 let objeto: Sprite = null
-let cartel: fancyText.TextSprite = null
-let contador: fancyText.TextSprite = null
+let cartel: Sprite = null
+let contador: Sprite = null
+let contadorImg: Image = null
+let letrero: Image = null
 let fondoContador: Sprite = null
 let descuentoPiezas = 0
 let rango = ""
