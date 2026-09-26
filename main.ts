@@ -208,7 +208,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Plastico, function (sprite, otro
     }
 })
 function presentarHistoria () {
-    scene.setBackgroundColor(15)
+    scene.setBackgroundImage(assets.image`portadaHistoria0`)
     game.splash("Mensaje desde 2126", "Ayuda hoy al futuro")
     game.showLongText("2026. Nico, Cami, Ale y Cris reciben un mensaje de una cuenta desconocida en Nodo, su aplicacion de chat. Dice venir de 2126...", DialogLayout.Full)
     game.showLongText("Somos sus nietos y nietas. Encontramos una maquina vieja que envia mensajes al pasado. La conectamos a Nodo. Aqui falta agua limpia, hay basura y casi no quedan zonas verdes.", DialogLayout.Full)
