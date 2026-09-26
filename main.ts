@@ -129,16 +129,21 @@ function comprobarBoton (boton: string) {
         actualizarContador()
     }
 }
-function prepararMenu () {
-    miniMenu.setStyleProperty(menuPersonajes, miniMenu.StyleKind.Default, miniMenu.StyleProperty.Margin, 3)
-    miniMenu.setStyleProperty(menuPersonajes, miniMenu.StyleKind.Default, miniMenu.StyleProperty.Background, -1)
-    miniMenu.setStyleProperty(menuPersonajes, miniMenu.StyleKind.Default, miniMenu.StyleProperty.Foreground, -5)
-    miniMenu.setStyleProperty(menuPersonajes, miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Background, 4)
-    miniMenu.setStyleProperty(menuPersonajes, miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Foreground, 1)
-    miniMenu.setStyleProperty(menuPersonajes, miniMenu.StyleKind.Selected, miniMenu.StyleProperty.Border, 1)
-}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (estado == "reparacion") {
+    if (estado == "seleccion") {
+        if (seleccion == 0) {
+            personajeSeleccionado = "Ale"
+        } else if (seleccion == 1) {
+            personajeSeleccionado = "Cami"
+        } else if (seleccion == 2) {
+            personajeSeleccionado = "Cris"
+        } else {
+            personajeSeleccionado = "Nico"
+        }
+        sprites.destroy(menuSel)
+        prepararPersonaje()
+        cargarNivel()
+    } else if (estado == "reparacion") {
         comprobarBoton("A")
     } else if (estado == "exploracion") {
         buscarBroteMarchito()
@@ -186,6 +191,12 @@ function revivirBrote () {
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (estado == "reparacion") {
         comprobarBoton("IZQUIERDA")
+    } else if (estado == "seleccion") {
+        seleccion += -1
+        if (seleccion < 0) {
+            seleccion = 3
+        }
+        dibujarSeleccion()
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Plastico, function (sprite, otroPlastico) {
@@ -340,6 +351,12 @@ function colocarRecursosYPeligros () {
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (estado == "reparacion") {
         comprobarBoton("DERECHA")
+    } else if (estado == "seleccion") {
+        seleccion += 1
+        if (seleccion > 3) {
+            seleccion = 0
+        }
+        dibujarSeleccion()
     }
 })
 function escribirContador (texto: string) {
@@ -533,6 +550,36 @@ function cargarNivel1 () {
     ponerCartel("RECICLAJE", 30, 19)
     ponerCartel("PARQUE", 8, 23)
 }
+function pantallaSeleccion () {
+    estado = "seleccion"
+    seleccion = 0
+    scene.setBackgroundColor(15)
+    menuImg = image.create(160, 120)
+    menuSel = sprites.create(menuImg, SpriteKind.Interfaz)
+    menuSel.setFlag(SpriteFlag.RelativeToCamera, true)
+    menuSel.setPosition(80, 60)
+    menuSel.z = 100
+    dibujarSeleccion()
+}
+function dibujarSeleccion () {
+    menuImg.fill(15)
+    menuImg.print("ELEGI TU PERSONAJE", 22, 12, 5)
+    menuImg.drawTransparentImage(assets.image`ale0`, 22, 42)
+    menuImg.drawTransparentImage(assets.image`cami0`, 57, 42)
+    menuImg.drawTransparentImage(assets.image`cris`, 94, 42)
+    menuImg.drawTransparentImage(assets.image`nico0`, 129, 42)
+    menuImg.fillRect(20 + seleccion * 36, 62, 14, 2, 5)
+    if (seleccion == 0) {
+        menuImg.print("ALE - camina mas rapido", 14, 78, 1)
+    } else if (seleccion == 1) {
+        menuImg.print("CAMI - ahorra una pieza", 14, 78, 1)
+    } else if (seleccion == 2) {
+        menuImg.print("CRIS - mas puntos", 26, 78, 1)
+    } else {
+        menuImg.print("NICO - carga una mas", 20, 78, 1)
+    }
+    menuImg.print("flechas y A", 44, 98, 9)
+}
 let plasticoNuevo: Sprite = null
 let tipoBasura = 0
 let humoNuevo: Sprite = null
@@ -565,7 +612,9 @@ let jugador: Sprite = null
 let piezas = 0
 let arbolesRegados = 0
 let personajeSeleccionado = ""
-let menuPersonajes: Sprite = null
+let menuSel: Sprite = null
+let menuImg: Image = null
+let seleccion = 0
 let arbolesParaGanar = 0
 let costoReparacion = 0
 let puntosReparacion = 0
@@ -582,27 +631,7 @@ costoReparacion = 3
 arbolesParaGanar = 5
 pause(500)
 presentarHistoria()
-menuPersonajes = miniMenu.createMenu(
-miniMenu.createMenuItem("Ale: mas velocidad", assets.image`ale0`),
-miniMenu.createMenuItem("Cami: ahorra 1 pieza", assets.image`cami0`),
-miniMenu.createMenuItem("Cris: +25 al reparar", assets.image`cris`),
-miniMenu.createMenuItem("Nico: carga 1 mas", assets.image`nico0`)
-)
-prepararMenu()
-miniMenu.onButtonPressed(menuPersonajes, miniMenu.Button.A, function (selection, selectedIndex) {
-    miniMenu.close(menuPersonajes)
-    if (selectedIndex == 0) {
-        personajeSeleccionado = "Ale"
-    } else if (selectedIndex == 1) {
-        personajeSeleccionado = "Cami"
-    } else if (selectedIndex == 2) {
-        personajeSeleccionado = "Cris"
-    } else {
-        personajeSeleccionado = "Nico"
-    }
-    prepararPersonaje()
-    cargarNivel()
-})
+pantallaSeleccion()
 game.onUpdateInterval(12000, function () {
     if (nivelActual == 2 && !(arrastrando)) {
         sprites.destroyAllSpritesOfKind(SpriteKind.Plastico)
